@@ -19,11 +19,18 @@ app.use('/api/user', require('./routes/user'));
 //login route
 app.use('/api/login', require('./routes/session'));
 
+//definitions route
+app.use('/api/definition', require('./routes/definition'));
+
+//log route
+app.use('/api/log', require('./routes/log'));
+
 //test route
 app.use('/api/test', function(req, res){
 	res.send("hello computer");
 });
 
+//test route for api http://localhost:3000/api/test
 app.listen(3000, function(){
 	console.log("app is listening on port 3000");
 });

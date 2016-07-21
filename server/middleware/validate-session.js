@@ -8,6 +8,7 @@ module.exports = function(req, res, next) {
 	if (!req.body.user && sessionToken) {
 		jwt.verify(sessionToken, process.env.JWT_SECRET, function(err, decoded) {
 			if (decoded) {
+				console.log(decoded);
 				User.findOne({ where: { id: decoded.id } }).then(
 					function(user) {
 						req.user = user;

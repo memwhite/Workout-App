@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var sequelize = require('../db');
-var Definition = require('../models/definition');
+var Definition = sequelize.import('../models/definition');
 
 //create definition 
 router.post('/', function(req, res){
@@ -30,7 +30,30 @@ router.post('/', function(req, res){
 
 //fetch definitions by userid
 router.get('/', function(req, res){
-
+	var owner = req.user.id; //shortify
+	Definition     //JavaScript doesn't care about white space
+		.findAll({  //so .findAll can be on this line or the line above
+			where: { owner: owner }
+		})
+		.then(
+			function findAllSuccess(data){
+				res.json(data);
+			},
+			function findAllError(err){
+				res.send(500, err.message);
+			}
+	);
 });
 
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
